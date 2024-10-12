@@ -39,7 +39,7 @@
     "href": "education.html#educational-certificates",
     "title": "Education and Training",
     "section": "Educational Certificates",
-    "text": "Educational Certificates\n\n1. Graduate Certificate on Geospatial Intelligence\nTentative graduation: Fall 2024\nGeospatial Information Sciences Program\nSchool of Economic, Political and Policy Sciences\nThe University of Texas at Dallas\n\n\n2. Graduate Certificate on Remote Sensing\nTentative graduation: Spring 2025\nGeospatial Information Sciences Program\nSchool of Economic, Political and Policy Sciences\nThe University of Texas at Dallas\n\n\n3. Graduate Certificate on Spatial Data Science\nTentative graduation: Fall 2025\nGeospatial Information Sciences Program\nSchool of Economic, Political and Policy Sciences\nThe University of Texas at Dallas"
+    "text": "Educational Certificates\n\n1. Graduate Certificate on Geospatial Intelligence\nTentative graduation: Fall 2024\nGeospatial Information Sciences Program\nSchool of Economic, Political and Policy Sciences\nThe University of Texas at Dallas\n\n\n2. Graduate Certificate on Remote Sensing\nTentative graduation: Spring 2025\nGeospatial Information Sciences Program\nSchool of Economic, Political and Policy Sciences\nThe University of Texas at Dallas\n\n\n3. Graduate Certificate on Spatial Data Science\nTentative graduation: Fall 2025\nGeospatial Information Sciences Program\nSchool of Economic, Political and Policy Sciences\nThe University of Texas at Dallas\n\n\n4. Python for Everybody Specialization\nUniversity of Michighan | Coursera\nCourses:\n\nGetting Started with Python\nPython Data Structures\nUsing Python to Access Web Data\nUsing Databases with Python\nCapstone: Reviewing, Processing and Visualizing Data with Python\n\n\n\n5. Data Science R Basics\nHarvard University | Datacamp"
   },
   {
     "objectID": "awards.html",
@@ -72,14 +72,14 @@
   {
     "objectID": "other.html#membership",
     "href": "other.html#membership",
-    "title": "",
+    "title": "Other",
     "section": "Membership",
     "text": "Membership\nAmerican Association of Geographers (Nov. 2023 – Present)"
   },
   {
     "objectID": "other.html#extra-curricular",
     "href": "other.html#extra-curricular",
-    "title": "",
+    "title": "Other",
     "section": "Extra-Curricular",
     "text": "Extra-Curricular\nMember of Bangladeshi Student Organization (BSO) in The University of Texas at Dallas"
   },
@@ -93,14 +93,14 @@
   {
     "objectID": "other.html",
     "href": "other.html",
-    "title": "",
+    "title": "Other",
     "section": "",
     "text": "Event Date: 8/2/2024\nUniversity of Texas at Dallas, USA\nResponsibilities:  Acted as a graduate student judge for the undergraduate poster competition, held on August 2nd, 2024, by Summer Platform for Undergraduate Research (SPUR).\n\n\n\nDuration: Jun. 2018-Jul. 2018\nDhaka, Bangladesh\nResponsibilities: Collecting qualitative data for projects called Urban Anchal and MDRTB based on early childhood development of slum dwellers and mental health of MDR-TB patients respectively."
   },
   {
     "objectID": "other.html#volunteer-work",
     "href": "other.html#volunteer-work",
-    "title": "",
+    "title": "Other",
     "section": "",
     "text": "Event Date: 8/2/2024\nUniversity of Texas at Dallas, USA\nResponsibilities:  Acted as a graduate student judge for the undergraduate poster competition, held on August 2nd, 2024, by Summer Platform for Undergraduate Research (SPUR).\n\n\n\nDuration: Jun. 2018-Jul. 2018\nDhaka, Bangladesh\nResponsibilities: Collecting qualitative data for projects called Urban Anchal and MDRTB based on early childhood development of slum dwellers and mental health of MDR-TB patients respectively."
   },
@@ -145,5 +145,26 @@
     "title": "Umme Kulsum",
     "section": "Selected Skills",
     "text": "Selected Skills\n\nArcGIS Pro, ArcGIS Online, QGIS\nPython, R\nPower BI, Tableau"
+  },
+  {
+    "objectID": "sample.html",
+    "href": "sample.html",
+    "title": "Work Sample",
+    "section": "",
+    "text": "Global Covid-19 Confirmed Cases Timeline."
+  },
+  {
+    "objectID": "sample.html#instant-apps",
+    "href": "sample.html#instant-apps",
+    "title": "Work Sample",
+    "section": "",
+    "text": "Global Covid-19 Confirmed Cases Timeline."
+  },
+  {
+    "objectID": "sample.html#story-maps",
+    "href": "sample.html#story-maps",
+    "title": "Work Sample",
+    "section": "Story Maps",
+    "text": "Story Maps\n\nTornadoes in Texas"
   }
 ]
