@@ -1,0 +1,24 @@
+/* css styles */
+/* css styles */
+h1.title {
+  text-align: center;
+}
+
+/* Justify all paragraph text */
+p {
+  text-align: justify;
+}
+
+/* Ensure figures (both regular and generated from code blocks) are centered */
+figure, .quarto-figure {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Prevent justification on images or figures inside paragraphs */
+p img, p figure {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
