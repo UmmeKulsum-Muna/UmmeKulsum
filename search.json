@@ -137,7 +137,7 @@
     "href": "index.html#selected-courses",
     "title": "Umme Kulsum",
     "section": "Selected Courses",
-    "text": "Selected Courses\n\nGISC 6379: Special Topics in GIS - Hazard and Disaster Management\nGISC 6363: Internet Mapping and Information Processing\nEPPS 6356: Data Visualization\nGISC 6321: Spatial Data Science\nGISC 6317: Python Programming for Social Science\nGISC 6323: Machine Learning for Socio-Economic and Geo-Referenced Data"
+    "text": "Selected Courses\n\nGISC 6388: Advanced GIS Programming\nGISC 6379: Special Topics in GIS - Hazard and Disaster Management\nGISC 6363: Internet Mapping and Information Processing\nEPPS 6356: Data Visualization\nGISC 6321: Spatial Data Science\nGISC 6317: Python Programming for Social Science\nGISC 6323: Machine Learning for Socio-Economic and Geo-Referenced Data"
   },
   {
     "objectID": "index.html#selected-skills",
@@ -156,15 +156,29 @@
   {
     "objectID": "sample.html#instant-apps",
     "href": "sample.html#instant-apps",
-    "title": "Work Sample",
-    "section": "",
-    "text": "Global Covid-19 Confirmed Cases Timeline."
+    "title": "About",
+    "section": "Instant Apps",
+    "text": "Instant Apps\n\nGlobal Covid-19 Confirmed Cases Timeline."
   },
   {
     "objectID": "sample.html#story-maps",
     "href": "sample.html#story-maps",
-    "title": "Work Sample",
+    "title": "About",
     "section": "Story Maps",
     "text": "Story Maps\n\nTornadoes in Texas"
+  },
+  {
+    "objectID": "sample.html#web-app",
+    "href": "sample.html#web-app",
+    "title": "Work Sample",
+    "section": "Web App",
+    "text": "Web App\n\nWebapp"
+  },
+  {
+    "objectID": "sample.html#web-experience-dashboard",
+    "href": "sample.html#web-experience-dashboard",
+    "title": "About",
+    "section": "Web Experience Dashboard",
+    "text": "Web Experience Dashboard\n\nU.S. Universities"
   }
 ]
