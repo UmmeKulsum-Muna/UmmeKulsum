@@ -1,0 +1,360 @@
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <meta name="author" content="Umme Kulsum">
+    <meta name="description" content="Web application showcasing conflict data in Nigeria | This is the modified version of the ESRI's Query statistics client-side by distance sample code. The author decided to add new widgets and use a different dataset ">
+    <meta name = "source" content = "https://developers.arcgis.com/javascript/latest/sample-code/featurelayerview-query-distance/">
+	<title>Conflict in Nigeria</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css"/>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #viewDiv {
+            position: absolute;
+            left: 0;
+            right: 40%;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+        }
+
+        #panel {
+            position: absolute;
+            right: 0;
+            height: 100%;
+            width: 40%;
+            overflow: scroll;
+			font-family: serif;
+        }
+	    #mapTitle {
+            position: absolute;
+            top: 10px;
+            left:30%;
+            transform: translateX(-50, -50%);
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            font-size: 24px;
+            font-weight: bold;
+			font-family: serif;
+            z-index: 99;
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+	   #linkTitle {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+			font-family: serif;
+            z-index: 99;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #num-events {
+            color: #ed5151;
+            font-size: 36pt;
+            font-weight: bolder;
+            line-height: 0.8;
+			font-family: serif;
+        }
+
+        #avg-fatalities {
+            color: #149ece;
+            font-size: 20pt;
+            font-weight: bolder;
+			font-family: serif;
+        }
+    </style>
+    <script src="https://js.arcgis.com/4.31/"></script>
+    <script>
+        require([
+            "esri/views/MapView",
+            "esri/WebMap",
+            "esri/widgets/Legend",
+            "esri/widgets/Expand",
+            "esri/Graphic",
+            "esri/geometry/geometryEngine",
+			"esri/widgets/CoordinateConversion",
+			"esri/widgets/LayerList",
+            "esri/core/reactiveUtils",
+			"esri/widgets/TimeSlider"
+        ], (MapView, WebMap, Legend, Expand, Graphic, geometryEngine, CoordinateConversion,LayerList,reactiveUtils, TimeSlider) => {
+            let yearChart, eventTypeChart, totalNumber, avgFatalities;
+
+            const webmap = new WebMap({
+                portalItem: {id: "bee2cb945a504ed59d349f9340ee9c8e"}
+            });
+
+            const view = new MapView({
+                map: webmap,
+                container: "viewDiv",
+                constraints: {minScale: 1}, 
+				center: [8.6, 9.0], 
+				zoom: 6
+            });
+			
+			
+            // Add LayerList Widget
+            const layerList = new LayerList({
+                view: view,
+                listItemCreatedFunction: (event) => {
+                    const item = event.item;
+                    if (item.layer.title === "Heatmap Layer") {
+                        item.title = "Heatmap Visualization";
+                    } else if (item.layer.title === "Conflict Layer") {
+                        item.title = "Conflict Events";
+                    }
+                }
+            });
+            const layerListExpand = new Expand({
+                content: layerList,
+                view: view,
+                expandTooltip: "Layer List"
+            });
+            view.ui.add(layerListExpand, "top-left");
+			
+			// Add Time Slider Widget
+			const timeSlider = new TimeSlider({
+			container: "timeSliderDiv",
+			view: view,
+			mode: "time-window", // Allows selecting a range of dates
+			playRate: 2000, // 2 seconds per time extent
+			stops: {
+			interval: {
+            value: 1,
+            unit: "years" // Adjust to your data's granularity
+			}}
+});      
+			// Wait for the map to load and configure the TimeSlider
+			view.when(() => {
+			const layer = webmap.layers.getItemAt(0); // Assuming the first layer is the time-enabled layer
+			// Wait for the layer to load
+			layer.when(() => {
+			// Check for timeInfo
+			if (layer.timeInfo) {
+				console.log("Layer Time Info:", layer.timeInfo);
+				// Set the TimeSlider's fullTimeExtent
+				const timeExtent = layer.timeInfo.fullTimeExtent;
+				timeSlider.fullTimeExtent = timeExtent;
+				// Set the initial values to the start and end of the time extent
+				timeSlider.values = [timeExtent.start, timeExtent.end];
+			// Add TimeSlider to the UI
+            view.ui.add(timeSlider, "bottom-right");
+			} else {
+				console.error("The layer does not have time info enabled.");
+			}
+		}).catch(error => {
+        console.error("Failed to load the layer:", error);
+    });
+});
+			const coordinateWidget = new CoordinateConversion({
+            view: view
+			});
+			view.ui.add(coordinateWidget, "top-right");
+
+
+            const titleContent = document.createElement("div"); 
+            titleContent.style.padding = "15px";
+            titleContent.style.backgroundColor = "white";
+            titleContent.style.width = "350px";
+            titleContent.innerHTML = `
+                <div id='title' class='esri-widget'>
+                    <span id='num-events'>0</span> conflict events recorded. <br/>
+                    The average number of fatalities is <span id='avg-fatalities'>0</span>.
+                </div>
+            `;
+
+            const titleExpand = new Expand({
+                expandIcon: "dashboard",
+                content: titleContent,
+                view: view
+            });
+            view.ui.add(titleExpand, "top-right");
+	      
+			const personalInfoContent = document.createElement("div");
+			personalInfoContent.style.padding = "15px";
+			personalInfoContent.style.backgroundColor = "white";
+			personalInfoContent.style.width = "350px";
+			personalInfoContent.innerHTML = `
+				<div id='personal-info' class='esri-widget'>
+					<h3>Submission Information</h3>
+					<p><strong>Name:</strong> Umme Kulsum</p>
+					<p><strong>Course </strong> GISC 6363 Fall 2024</p>
+                                        <p><strong>Institution </strong> University of Texas at Dallas</p>
+					<p><strong>Website </strong> <a href = "https://ummekulsum-muna.github.io/UmmeKulsum/"> Umme Kulsum </a></p>
+				</div>
+        `;
+
+			const personalInfoExpand = new Expand({
+				expandIcon: "data-card",
+				content: personalInfoContent,
+				view: view
+			});
+			view.ui.add(personalInfoExpand, "top-left");
+
+			// Add Floating Button
+            const linkTitle = document.createElement("div");
+            linkTitle.id = "linkTitle";
+            linkTitle.innerHTML = `
+                <a href="https://www.crisisgroup.org/africa/west-africa/nigeria" target="_blank">More Info</a>
+            `;
+            document.body.appendChild(linkTitle);
+
+            const legendExpand = new Expand({
+                content: new Legend({view: view}),
+                view: view
+            });
+            view.ui.add(legendExpand, "bottom-left");
+
+            view.when().then(() => {
+                createCharts();
+                const layer = webmap.layers.getItemAt(0);
+                layer.outFields = ["YEAR", "FATALITIES", "EVENT_TYPE", "Date"];
+
+                view.whenLayerView(layer).then((layerView) => {
+                    reactiveUtils.whenOnce(() => !layerView.updating).then(() => {
+                        view.on(["click", "drag"], (event) => {
+                            event.stopPropagation();
+                            displayBuffer(event.mapPoint);
+                            queryStats(layerView, event.mapPoint).then(updateCharts).catch(console.error);
+                        });
+                    });
+                });
+            });
+
+            function displayBuffer(point) {
+                const buffer = geometryEngine.buffer(point, 20, "miles");
+                const bufferGraphic = new Graphic({
+                    geometry: buffer,
+                    symbol: {
+                        type: "simple-fill",
+                        color: [0, 0, 0, 0.2],
+                        outline: {
+                            color: [0, 0, 0],
+                            width: 2
+                        }
+                    }
+                });
+
+                view.graphics.removeAll(); // Remove any existing buffers
+                view.graphics.add(bufferGraphic);
+            }
+
+            function queryStats(layerView, point) {
+                const query = layerView.layer.createQuery();
+                query.geometry = geometryEngine.buffer(point, 20, "miles");
+                query.outStatistics = [
+                    {onStatisticField: "FATALITIES", outStatisticFieldName: "total_fatalities", statisticType: "sum"},
+                    {onStatisticField: "FATALITIES", outStatisticFieldName: "avg_fatalities", statisticType: "avg"}
+                ];
+                query.groupByFieldsForStatistics = ["YEAR", "EVENT_TYPE"]; // Group by year and event type
+
+                return layerView.queryFeatures(query).then(response => {
+                    const statsByYear = {};
+                    const statsByEventType = {};
+
+                    response.features.forEach(feature => {
+                        const {YEAR, EVENT_TYPE, total_fatalities} = feature.attributes;
+
+                        if (!statsByYear[YEAR]) statsByYear[YEAR] = 0;
+                        statsByYear[YEAR] += total_fatalities;
+
+                        if (!statsByEventType[EVENT_TYPE]) statsByEventType[EVENT_TYPE] = 0;
+                        statsByEventType[EVENT_TYPE] += total_fatalities;
+                    });
+
+                    return {statsByYear, statsByEventType};
+                });
+            }
+
+            function updateCharts({statsByYear, statsByEventType}) {
+                const years = Object.keys(statsByYear);
+                const fatalitiesByYear = Object.values(statsByYear);
+
+                const eventTypes = Object.keys(statsByEventType);
+                const fatalitiesByEventType = Object.values(statsByEventType);
+
+                totalNumber.innerHTML = fatalitiesByYear.reduce((a, b) => a + b, 0) || 0;
+                avgFatalities.innerHTML = (fatalitiesByYear.reduce((a, b) => a + b, 0) / fatalitiesByYear.length).toFixed(2);
+
+                // Update year chart
+                yearChart.data.labels = years;
+                yearChart.data.datasets[0].data = fatalitiesByYear;
+                yearChart.update();
+
+                // Update event type chart with specified colors
+                eventTypeChart.data.labels = eventTypes;
+                eventTypeChart.data.datasets[0].data = fatalitiesByEventType;
+                eventTypeChart.data.datasets[0].backgroundColor = eventTypes.map(eventType => {
+                    return eventType === "Violence against civilians" ? "#ed5151" : "#149ece";
+                });
+                eventTypeChart.update();
+            }
+
+            function createCharts() {
+                totalNumber = document.getElementById("num-events");
+                avgFatalities = document.getElementById("avg-fatalities");
+
+                const yearCanvas = document.getElementById("year-chart");
+                yearChart = new Chart(yearCanvas.getContext("2d"), {
+                    type: "bar",
+                    data: {
+                        labels: [], // Years will be dynamically populated
+                        datasets: [{
+                            label: "Fatalities",
+                            backgroundColor: "#149ece", // Blue for year chart
+                            data: []
+                        }]
+                    },
+                    options: {
+                        title: {display: true, text: "Fatalities by Year"},
+                        scales: {
+                            xAxes: [{scaleLabel: {display: true, labelString: "Year"}}],
+                            yAxes: [{ticks: {beginAtZero: true}}]
+                        }
+                    }
+                });
+
+                const eventTypeCanvas = document.getElementById("event-type-chart");
+                eventTypeChart = new Chart(eventTypeCanvas.getContext("2d"), {
+                    type: "doughnut",
+                    data: {
+                        labels: [], // Event types will be dynamically populated
+                        datasets: [{
+                            label: "Fatalities",
+                            backgroundColor: [], // Dynamic color assignment
+                            data: []
+                        }]
+                    },
+                    options: {
+                        title: {display: true, text: "Fatalities by Event Type"},
+                        legend: {position: "bottom"}
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body> 
+<div id="viewDiv">
+        <div id="mapTitle">Conflict Analysis in Nigeria</div>
+</div>
+<div id="panel">
+    <div style="padding: 15px">
+        <canvas id="year-chart" height="380" width="550"></canvas>
+        <canvas id="event-type-chart" height="380" width="550"></canvas>
+    </div>
+</div>
+</body>
+</html>
