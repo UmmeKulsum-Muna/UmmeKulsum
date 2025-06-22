@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -78,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -88,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Umme Kulsum</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sections" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sections" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Sections</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sections">    
@@ -112,9 +112,36 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./other.html">
  <span class="dropdown-text">Other</span></a>
   </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sample-work" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sample Work</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sample-work">    
         <li>
     <a class="dropdown-item" href="./sample.html">
- <span class="dropdown-text">Work Sample</span></a>
+ <span class="dropdown-text">About</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://utdepps.maps.arcgis.com/apps/instant/slider/index.html?appid=f2aa55ed47394c6b87deb3ad313713bb">
+ <span class="dropdown-text">Instant App</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://storymaps.arcgis.com/stories/2e3040ec8925422b9b19e859ea3536da">
+ <span class="dropdown-text">Story Map</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ConflictAnalysisNigeriaUmmeKulsum.html">
+ <span class="dropdown-text">Web App</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://experience.arcgis.com/experience/af588c8aa256489fa750830bbbd53302">
+ <span class="dropdown-text">Web Experience App</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./GISC6388ProjectFinalUmmeKulsum.pdf">
+ <span class="dropdown-text">Automated Prediction Model</span></a>
   </li>  
     </ul>
   </li>
@@ -142,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -204,8 +231,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="education">Education</h2>
 <section id="doctor-of-philosophy-2027" class="level3">
 <h3 class="anchored" data-anchor-id="doctor-of-philosophy-2027"><strong>Doctor of Philosophy:</strong> 2027</h3>
-<p>Candidate<br>
-Geospatial Information Sciences<br>
+<p>Geospatial Information Sciences<br>
 School of Economic, Political and Policy Sciences<br>
 The University of Texas at Dallas</p>
 </section>
@@ -224,14 +250,14 @@ Jagannath University, Bangladesh</p>
 <h2 class="anchored" data-anchor-id="educational-certificates"><strong>Educational Certificates</strong></h2>
 <section id="graduate-certificate-on-geospatial-intelligence" class="level3">
 <h3 class="anchored" data-anchor-id="graduate-certificate-on-geospatial-intelligence">1. <strong>Graduate Certificate on Geospatial Intelligence</strong></h3>
-<p>Tentative graduation: Fall 2024<br>
+<p>Fall 2024<br>
 Geospatial Information Sciences Program<br>
 School of Economic, Political and Policy Sciences<br>
 The University of Texas at Dallas</p>
 </section>
 <section id="graduate-certificate-on-remote-sensing" class="level3">
 <h3 class="anchored" data-anchor-id="graduate-certificate-on-remote-sensing">2. <strong>Graduate Certificate on Remote Sensing</strong></h3>
-<p>Tentative graduation: Spring 2025<br>
+<p>Spring 2025<br>
 Geospatial Information Sciences Program<br>
 School of Economic, Political and Policy Sciences<br>
 The University of Texas at Dallas</p>
@@ -311,18 +337,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -354,7 +369,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -362,7 +399,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
